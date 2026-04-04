@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for
 from database import EmergencyDB
+import uuid
 
 
 app = Flask(__name__)
@@ -27,6 +28,10 @@ def do_login():
     if user and user['password'] == password:
         session['user_id'] = user['id']
         session['username'] = user['username']
+        session['role'] = user['role']
+        
+        if session['role'] == 'helper':
+            return redirect('/helper_dashboard')
         return redirect('/profile')
     return "Erreur d'authentification", 401
 
@@ -42,6 +47,31 @@ def emergency_view(username):
     return "Profil non trouvé", 404
 
 
+
+
+
+@app.route('/new_user', methods=['GET', 'POST'])
+def new_user():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        role = request.form.get('role') 
+        
+        user_id = db.create_user(username, password, role)
+        
+        if role == 'patient':
+            
+            secret_key = str(uuid.uuid4())[:6].upper()
+            db.create_profile(user_id, "À remplir", "À remplir", secret_key)
+            
+        return redirect('/login') 
+    return render_template('new_user.html')
+
+
+
+
+
+
 #espace personnel-------------------------------------------
 @app.route('/profile')
 def profile():
@@ -53,7 +83,18 @@ def profile():
     return render_template('own_profile.html', profile=profile_data, instructions=instructions)
 
 
-
+@app.route('/update-profile', methods=['POST'])
+def update_profile():
+    # On récupère les données du formulaire
+    p_id = request.form.get('profile_id')
+    cond = request.form.get('condition_name')
+    cont = request.form.get('emergency_contact')
+    
+    # On appelle la fonction de database.py
+    db.update_profile(p_id, cond, cont)
+    
+    # On recharge la page du profil pour voir les changements
+    return redirect('/profile')
 
 #ajout instructions-----------------------------------------
 @app.route('/add-instruction', methods=['POST'])
@@ -81,7 +122,31 @@ def delete_instruction(id):
 @app.route('/logout')
 def logout():
     session.clear()
+    return redirect('/')
     
+
+
+@app.route('/helper_dashboard')
+def helper_dashboard():
+    if 'user_id' not in session or session.get('role') != 'helper':
+        return redirect('/login')
+    
+    # On récupère la liste des patients liés à cet accompagnant
+    patients = db.get_followed_patients(session['user_id'])
+    
+    return render_template('helper_dashboard.html', patients=patients)
+
+# Route pour lier un patient à l'accompagnant
+@app.route('/link-patient', methods=['POST'])
+def link_patient():
+    if 'user_id' not in session or session.get('role') != 'helper':
+        return redirect('/login')
+    
+    patient_username = request.form.get('patient_username')
+    # On utilise la fonction de database.py
+    success = db.link_helper_to_patient(patient_username, session['user_id'])
+    
+    return redirect('/helper_dashboard')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Espace Accompagnant</title>
+</head>
+<body>
+    <div>
+        <h1>Espace Accompagnant : {{ session['username'] }}</h1>
+        <a href="/logout">Se déconnecter</a>
+    </div>
+
+    <br>
+
+    <div>
+        <h3>Suivre un nouveau patient</h3>
+        <form action="/link-patient" method="POST">
+            <input type="text" name="patient_username" placeholder="Pseudo du patient" required>
+            <button type="submit">Ajouter à ma liste</button>
+        </form>
+    </div>
+
+    <br>
+
+    <div>
+        <h3>Patients que je suis</h3>
+        {% if patients %}
+            <ul>
+            {% for p in patients %}
+                <li>
+                    <strong>{{ p.username }}</strong> - 
+                    <a href="/emergency/{{ p.username }}">Voir sa fiche</a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>Vous ne suivez aucun patient pour le moment.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

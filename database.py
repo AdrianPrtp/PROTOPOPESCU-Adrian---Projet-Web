@@ -41,9 +41,10 @@ def db_update(query, args=(), db_name=DBFILENAME):
 
 class EmergencyDB:
   
-    def create_user(self, username, password):
-            query = "INSERT INTO user (username, password) VALUES (?, ?)"
-            return db_insert(query, (username, password))
+   
+    def create_user(self, username, password, role):
+        query = "INSERT INTO user (username, password, role) VALUES (?, ?, ?)"
+        return db_insert(query, (username, password, role))
   
     def get_user(self, username):
             query = "SELECT * FROM user WHERE username = ?"
@@ -53,6 +54,14 @@ class EmergencyDB:
     def create_profile(self, user_id, condition, contact):
             query = "INSERT INTO emergency_profile (user_id, condition_name, emergency_contact) VALUES (?, ?, ?)"
             return db_insert(query, (user_id, condition, contact))
+    
+    def update_profile(self, profile_id, condition, contact):
+        query = """
+                UPDATE emergency_profile 
+                SET condition_name = ?, emergency_contact = ? 
+                WHERE id = ?
+        """
+        return db_update(query, (condition, contact, profile_id))
 
     def get_profile_by_username(self, username):
             query = """
@@ -73,3 +82,19 @@ class EmergencyDB:
     def delete_instruction(self, instruction_id):
             query = "DELETE FROM instructions WHERE id = ?"
             return db_update(query, (instruction_id,))
+    
+    def link_helper_to_patient(self, patient_username, helper_id):
+        # On trouve le profil du patient
+        profile = self.get_profile_by_username(patient_username)
+        if profile:
+            query = "UPDATE emergency_profile SET helper_id = ? WHERE id = ?"
+            return db_update(query, (helper_id, profile['id']))
+        return 0
+
+    def get_followed_patients(self, helper_id):
+        query = """
+            SELECT user.username, emergency_profile.* FROM emergency_profile 
+            JOIN user ON user.id = emergency_profile.user_id 
+            WHERE emergency_profile.helper_id = ?
+        """
+        return db_fetch(query, (helper_id,), all=True)

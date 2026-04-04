@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>URGENCE - {{ profile.username }}</title>
+</head>
+<body>
+
+    <div>
+        <h1>FICHE D'URGENCE</h1>
+        <h2>Patient : {{ profile.username }}</h2>
+    </div>
+
+    <div>
+        <h3>Condition médicale principale</h3>
+        <p>{{ profile.condition_name }}</p>
+    </div>
+
+    <div>
+        <h3>Personne à prévenir</h3>
+        <p>{{ profile.emergency_contact }}</p>
+    </div>
+
+    <div>
+        <h3>Instructions en cas de crise</h3>
+        <table border="1">
+            <tr>
+                <th>Symptôme observé</th>
+                <th>Action à effectuer immédiatement</th>
+            </tr>
+            {% for inst in instructions %}
+            <tr>
+                <td>{{ inst.symptom }}</td>
+                <td>{{ inst.action }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div>
+        <p>Ceci est une fiche d'information vitale.</p>
+        <a href="/">Retour</a>
+    </div>
+
+</body>
+</html>

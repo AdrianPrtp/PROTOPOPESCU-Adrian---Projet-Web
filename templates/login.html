@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion - Fiche d'Urgencet Urgence</title>
+</head>
+<body>
+    <h1>Connexion à votre espace</h1>
+    
+    <form action="/do-login" method="POST">
+        <p>
+            <label>Nom d'utilisateur :</label><br>
+            <input type="text" name="username" required placeholder="Ex: tititoto123">
+        </p>
+        <p>
+            <label>Mot de passe :</label><br>
+            <input type="password" name="password" required>
+        </p>
+        <button type="submit">Se connecter</button>
+    </form>
+
+    <hr>
+    <p>Vous n'avez pas encore de compte ? <a href="/new_user">Alors inscrivez-vous ici</a></p>
+    <a href="/">Retour à l'accueil</a>
+</body>
+</html>

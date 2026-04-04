@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Créer un compte</title>
+</head>
+<body>
+    <h1>Inscription</h1>
+
+    <form action="/new_user" method="POST">
+        <div>
+            <label>Je m'inscris en tant que :</label><br>
+            <input type="radio" id="patient" name="role" value="patient" checked> 
+            <label for="patient">Patient</label>
+            
+            <input type="radio" id="helper" name="role" value="helper"> 
+            <label for="helper">Accompagnant</label>
+        </div>
+
+        <p>
+            <label>Nom d'utilisateur :</label><br>
+            <input type="text" name="username" required>
+        </p>
+        <p>
+            <label>Mot de passe :</label><br>
+            <input type="password" name="password" required>
+        </p>
+        
+        <button type="submit">Créer mon compte</button>
+    </form>
+
+    <br>
+    <a href="/">Retour à l'accueil</a>
+</body>
+</html>
