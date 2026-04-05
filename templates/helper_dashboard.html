@@ -15,8 +15,15 @@
     <div>
         <h3>Suivre un nouveau patient</h3>
         <form action="/link-patient" method="POST">
-            <input type="text" name="patient_username" placeholder="Pseudo du patient" required>
-            <button type="submit">Ajouter à ma liste</button>
+            <p>
+                <label>Nom d'utilisateur du patient :</label><br>
+                <input type="text" name="patient_username" placeholder="Ex: tititoto123" required>
+            </p>
+            <p>
+                <label>Code secret de liaison :</label><br>
+                <input type="text" name="secret_key" placeholder="Ex: A1B2C3" required>
+            </p>
+            <button type="submit">Lier ce patient à mon compte</button>
         </form>
     </div>
 

@@ -51,9 +51,9 @@ class EmergencyDB:
             return db_fetch(query, (username,))
   
 
-    def create_profile(self, user_id, condition, contact):
-            query = "INSERT INTO emergency_profile (user_id, condition_name, emergency_contact) VALUES (?, ?, ?)"
-            return db_insert(query, (user_id, condition, contact))
+    def create_profile(self, user_id, condition, contact, secret_key): 
+      query = "INSERT INTO emergency_profile (user_id, condition_name, emergency_contact, secret_key) VALUES (?, ?, ?, ?)"
+      return db_insert(query, (user_id, condition, contact, secret_key)) 
     
     def update_profile(self, profile_id, condition, contact):
         query = """
@@ -83,13 +83,21 @@ class EmergencyDB:
             query = "DELETE FROM instructions WHERE id = ?"
             return db_update(query, (instruction_id,))
     
-    def link_helper_to_patient(self, patient_username, helper_id):
-        # On trouve le profil du patient
-        profile = self.get_profile_by_username(patient_username)
+    
+    def link_helper_to_patient(self, patient_username, secret_key, helper_id):
+        query = """
+            SELECT emergency_profile.id FROM emergency_profile 
+            JOIN user ON user.id = emergency_profile.user_id 
+            WHERE user.username = ? AND emergency_profile.secret_key = ?
+        """
+        profile = db_fetch(query, (patient_username, secret_key))
+        
         if profile:
-            query = "UPDATE emergency_profile SET helper_id = ? WHERE id = ?"
-            return db_update(query, (helper_id, profile['id']))
-        return 0
+            query_update = "UPDATE emergency_profile SET helper_id = ? WHERE id = ?"
+            db_update(query_update, (helper_id, profile['id']))
+            return True
+            
+        return False
 
     def get_followed_patients(self, helper_id):
         query = """

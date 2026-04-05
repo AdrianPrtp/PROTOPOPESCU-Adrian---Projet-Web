@@ -78,8 +78,11 @@ def profile():
     if 'user_id' not in session:
         return redirect('/login')
     
+
     profile_data = db.get_profile_by_username(session['username'])
     instructions = db.get_instructions(profile_data['id'])
+    
+    
     return render_template('own_profile.html', profile=profile_data, instructions=instructions)
 
 
@@ -143,9 +146,12 @@ def link_patient():
         return redirect('/login')
     
     patient_username = request.form.get('patient_username')
-    # On utilise la fonction de database.py
-    success = db.link_helper_to_patient(patient_username, session['user_id'])
+    secret_key = request.form.get('secret_key') 
     
+    success = db.link_helper_to_patient(patient_username, secret_key, session['user_id'])
+    
+    if not success:
+        return "Pseudo ou code secret incorrect", 403
     return redirect('/helper_dashboard')
 
 if __name__ == '__main__':
