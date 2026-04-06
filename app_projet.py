@@ -36,7 +36,7 @@ def do_login():
     return "Erreur d'authentification", 401
 
 
-#vue d'urgence (publique)-----------------------------------
+#vue d'urgence -----------------------------------
 @app.route('/emergency/<username>')
 def emergency_view(username):
     profile = db.get_profile_by_username(username)
