@@ -8,7 +8,7 @@
     <style>
         body { 
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            background-color: #f8f9fa; 
+            background-color: #cec9c9; 
             color: #333; 
         }
         h1, h2, h3 { color: #2c3e50; } 
@@ -28,11 +28,11 @@
         <form action="/link-patient" method="POST">
             <p>
                 <label>Nom d'utilisateur du patient :</label><br>
-                <input type="text" name="patient_username" placeholder="Ex: tititoto123" required>
+                <input type="text" name="patient_username" class="form-control mx-auto w-50"placeholder="Ex: tititoto123" required>
             </p>
             <p>
                 <label>Code secret de liaison :</label><br>
-                <input type="text" name="secret_key" placeholder="Ex: A1B2C3" required>
+                <input type="text" name="secret_key" class="form-control mx-auto w-50" placeholder="Ex: A1B2C3" required>
             </p>
             <button type="submit" class="btn btn-primary">Lier ce patient à mon compte</button>
         </form>

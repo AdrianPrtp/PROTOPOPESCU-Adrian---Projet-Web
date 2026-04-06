@@ -8,7 +8,7 @@
     <style>
         body { 
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            background-color: #f8f9fa; 
+            background-color: #cec9c9; 
             color: #333; 
         }
         h1, h2, h3 { color: #2c3e50; } 
@@ -21,11 +21,11 @@
     <form action="/do-login" method="POST">
         <p>
             <label>Nom d'utilisateur :</label><br>
-            <input type="text" name="username" required placeholder="Ex: tititoto123">
+            <input type="text" name="username"  placeholder="Ex: tititoto123" class="form-control mx-auto w-50" required> 
         </p>
         <p>
             <label>Mot de passe :</label><br>
-            <input type="password" name="password" required>
+            <input type="password" name="password" class="form-control mx-auto w-50" required>
         </p>
         <button type="submit" class="btn btn-primary">Se connecter</button>
     </form>

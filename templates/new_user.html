@@ -9,12 +9,12 @@
     <style>
         body { 
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            background-color: #f8f9fa; 
+            background-color: #cec9c9; 
             color: #333; 
         }
         h1, h2, h3 { color: #2c3e50; } 
     </style>
-    
+
 </head>
 <body>
     <div class="text-center">
@@ -23,20 +23,20 @@
     <form action="/new_user" method="POST">
         <div>
             <label>Je m'inscris en tant que :</label><br>
-            <input type="radio" id="patient" name="role" value="patient" checked> 
+            <input type="radio" id="patient" name="role" value="patient" class="form-control mx-auto w-50" checked> 
             <label for="patient">Patient</label>
             
-            <input type="radio" id="helper" name="role" value="helper"> 
+            <input type="radio" id="helper" name="role" class="form-control mx-auto w-50" value="helper"> 
             <label for="helper">Accompagnant</label>
         </div>
 
         <p>
             <label>Nom d'utilisateur :</label><br>
-            <input type="text" name="username" required>
+            <input type="text" name="username" class="form-control mx-auto w-50" required>
         </p>
         <p>
             <label>Mot de passe :</label><br>
-            <input type="password" name="password" required>
+            <input type="password" name="password" class="form-control mx-auto w-50" required>
         </p>
         
         <button type="submit" class = "btn btn-primary">Créer mon compte</button>

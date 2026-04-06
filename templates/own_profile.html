@@ -8,7 +8,7 @@
     <style>
         body { 
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            background-color: #f8f9fa; 
+            background-color: #cec9c9; 
             color: #333; 
         }
         h1, h2, h3 { color: #2c3e50; } 
@@ -26,18 +26,19 @@
     <div>
         <h3>Mes Informations Vitales</h3>
         <form action="/update-profile" method="POST">
-             <input type="hidden" name="profile_id" value="{{ profile.id }}">
+             <input type="hidden" name="profile_id" class="form-control mx-auto w-50" value="{{ profile.id }}">
     
              <div>
                 <label>Ma Pathologie :</label>
-                <input type="text" name="condition_name" value="{{ profile.condition_name }}">
+                <input type="text" name="condition_name" class="form-control mx-auto w-50" value="{{ profile.condition_name }}">
             </div>
     
             <div>
                 <label>Contact d'urgence :</label>
-                <input type="text" name="emergency_contact" value="{{ profile.emergency_contact }}">
+                <input type="text" name="emergency_contact" class="form-control mx-auto w-50" value="{{ profile.emergency_contact }}">
             </div>
-    
+            <br>
+            <br>
             <button type="submit" class="btn btn-primary">Mettre à jour mes informations</button>
         </form>
     </div>
@@ -73,16 +74,16 @@
     <div>
         <h3>Ajouter une consigne</h3>
         <form action="/add-instruction" method="POST">
-            <input type="hidden" name="profile_id" value="{{ profile.id }}">
+            <input type="hidden" name="profile_id" class="form-control mx-auto w-50"value="{{ profile.id }}">
             
             <div>
                 <label>Symptôme :</label>
-                <input type="text" name="symptom" required>
+                <input type="text" name="symptom" class="form-control mx-auto w-50" required>
             </div>
             
             <div>
                 <label>Action :</label>
-                <input type="text" name="action" required>
+                <input type="text" name="action" class="form-control mx-auto w-50" required>
             </div>
             
             <button type="submit" class="btn btn-success">Enregistrer</button>
