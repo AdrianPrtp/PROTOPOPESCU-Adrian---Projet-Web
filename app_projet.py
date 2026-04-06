@@ -39,7 +39,6 @@ def do_login():
 #vue d'urgence (publique)-----------------------------------
 @app.route('/emergency/<username>')
 def emergency_view(username):
-    # Comme movies_db.read(id), on lit le profil par le username
     profile = db.get_profile_by_username(username)
     if profile:
         instructions = db.get_instructions(profile['id'])
