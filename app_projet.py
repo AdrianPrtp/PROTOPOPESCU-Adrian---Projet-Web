@@ -42,7 +42,7 @@ def emergency_view(username):
     profile = db.get_profile_by_username(username)
     if profile:
         instructions = db.get_instructions(profile['id'])
-        return render_template('emergency_view.html', profile=profile, instructions=instructions)
+        return render_template('emergency_view.html', profile=profile, instructions=instructions, username=username)
     return "Profil non trouvé", 404
 
 
@@ -87,15 +87,12 @@ def profile():
 
 @app.route('/update-profile', methods=['POST'])
 def update_profile():
-    # On récupère les données du formulaire
     p_id = request.form.get('profile_id')
     cond = request.form.get('condition_name')
     cont = request.form.get('emergency_contact')
     
-    # On appelle la fonction de database.py
     db.update_profile(p_id, cond, cont)
     
-    # On recharge la page du profil pour voir les changements
     return redirect('/profile')
 
 #ajout instructions-----------------------------------------
@@ -133,12 +130,14 @@ def helper_dashboard():
     if 'user_id' not in session or session.get('role') != 'helper':
         return redirect('/login')
     
-    # On récupère la liste des patients liés à cet accompagnant
     patients = db.get_followed_patients(session['user_id'])
     
     return render_template('helper_dashboard.html', patients=patients)
 
-# Route pour lier un patient à l'accompagnant
+
+
+
+# Route pour lier un patient à l'accompagnant-------------------------------
 @app.route('/link-patient', methods=['POST'])
 def link_patient():
     if 'user_id' not in session or session.get('role') != 'helper':

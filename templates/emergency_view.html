@@ -16,11 +16,29 @@
 
 </head>
 <body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a class="navbar-brand fw-bold" href="/"> Fiche d'Urgence</a>
+        <div class="d-flex align-items-center">
+            {% if session.get('user_id') %}
+                <a href="/logout" class="btn btn-outline-light btn-sm me-3">Déconnexion</a>
+            {% endif %}
+            <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo" style="height: 40px; border-radius: 5px;">
+        </div>
+    </div>
+    </nav>
+
+
+    
     <div class="text-center container py-5">
     <div>
         <h1 class="text-danger fw-bold">FICHE D'URGENCE</h1>
-        <h2>Patient : {{ profile.username }}</h2>
+        <h2>Patient : {{ username }}</h2>
     </div>
+    <hr>
+
 
     <div class="mt-4">
         <h3>Condition médicale principale</h3>
@@ -31,7 +49,7 @@
         <h3>Personne à prévenir</h3>
         <p class="fs-4">{{ profile.emergency_contact }}</p>
     </div>
-
+    <hr>
     <div class="mt-4">
         <h3>Instructions en cas de crise</h3>
         <table class="table table-bordered table-striped mx-auto w-75 mt-3 shadow-sm">

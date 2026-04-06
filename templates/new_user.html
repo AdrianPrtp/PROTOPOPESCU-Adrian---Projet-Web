@@ -16,19 +16,38 @@
     </style>
 
 </head>
+
+
 <body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a class="navbar-brand fw-bold" href="/"> Fiche d'Urgence</a>
+        <div class="d-flex align-items-center">
+            {% if session.get('user_id') %}
+                <a href="/logout" class="btn btn-outline-light btn-sm me-3">Déconnexion</a>
+            {% endif %}
+            <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo" style="height: 40px; border-radius: 5px;">
+        </div>
+    </div>
+    </nav>
+
+
+
     <div class="text-center">
     <h1>Inscription</h1>
 
     <form action="/new_user" method="POST">
         <div>
             <label>Je m'inscris en tant que :</label><br>
-            <input type="radio" id="patient" name="role" value="patient" class="form-control mx-auto w-50" checked> 
+            <input type="radio" id="patient" name="role" value="patient" checked> 
             <label for="patient">Patient</label>
             
-            <input type="radio" id="helper" name="role" class="form-control mx-auto w-50" value="helper"> 
+            <input type="radio" id="helper" name="role" value="accompagnant" checked> 
             <label for="helper">Accompagnant</label>
         </div>
+        <br>
 
         <p>
             <label>Nom d'utilisateur :</label><br>

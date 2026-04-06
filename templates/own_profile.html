@@ -15,10 +15,23 @@
     </style>
 </head>
 <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a class="navbar-brand fw-bold" href="/"> Fiche d'Urgence</a>
+        <div class="d-flex align-items-center">
+            {% if session.get('user_id') %}
+                <a href="/logout" class="btn btn-outline-light btn-sm me-3">Déconnexion</a>
+            {% endif %}
+            <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo" style="height: 40px; border-radius: 5px;">
+        </div>
+    </div>
+    </nav>
+
+
     <div class="text-center">
     <div>
         <h1>Tableau de bord de {{ session['username'] }}</h1>
-        <a href="/logout">Se déconnecter</a>
     </div>
 
     <hr>
@@ -38,7 +51,7 @@
                 <input type="text" name="emergency_contact" class="form-control mx-auto w-50" value="{{ profile.emergency_contact }}">
             </div>
             <br>
-            <br>
+            
             <button type="submit" class="btn btn-primary">Mettre à jour mes informations</button>
         </form>
     </div>
@@ -85,7 +98,7 @@
                 <label>Action :</label>
                 <input type="text" name="action" class="form-control mx-auto w-50" required>
             </div>
-            
+            <br>
             <button type="submit" class="btn btn-success">Enregistrer</button>
         </form>
     </div>
@@ -95,18 +108,22 @@
         <p>Voici votre code secret : <strong id="secret_key">{{ profile.secret_key }}</strong></p>
 
         <button type="button" onclick="copier()" class="btn btn-secondary btn-sm">Copier le code</button>
+        <br>
+        <br>
         <p><small>Donnez ce code uniquement à votre accompagnant de confiance.</small></p>
     </div>
     <hr>
     <div>
         <h3>Ma fiche d'urgence publique</h3>
-        <p>Voici le lien à transmettre:</p>
+        
     
         <a href="/emergency/{{ session['username'] }}" target="_blank" style="font-weight: bold; color: #d9534f;" class="btn btn-link">
         Visualiser ma fiche publique (cliquez ici)
         </a>
+        <br>
+        <br>
     
-        <p><small>URL : /emergency/{{ session['username'] }}</small></p>
+       
     </div>
     </div>
 

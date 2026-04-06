@@ -16,6 +16,21 @@
     </style>
 </head>
 <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a class="navbar-brand fw-bold" href="/"> Fiche d'Urgence</a>
+        <div class="d-flex align-items-center">
+            {% if session.get('user_id') %}
+                <a href="/logout" class="btn btn-outline-light btn-sm me-3">Déconnexion</a>
+            {% endif %}
+            <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo" style="height: 40px; border-radius: 5px;">
+        </div>
+    </div>
+    </nav>
+
+
+
     <div class="text-center">
     <h1>Bienvenue sur votre Fiche d'urgence</h1>
     <p>Une solution simple pour transmettre vos informations vitales en cas de problème.</p>
